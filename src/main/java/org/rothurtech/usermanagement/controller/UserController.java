@@ -1,7 +1,7 @@
 package org.rothurtech.usermanagement.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.juli.logging.LogFactory;
+import jakarta.validation.Valid;
 import org.rothurtech.usermanagement.exception.UserException;
 import org.rothurtech.usermanagement.model.User;
 import org.rothurtech.usermanagement.service.UserService;
@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/getUser")
-    public String getUser(User user, BindingResult bindingResult) {
+    public String getUser(@Valid  User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
         }

@@ -1,5 +1,7 @@
 package org.rothurtech.usermanagement.model;
 
+import jakarta.validation.constraints.Min;
+
 import java.util.Objects;
 
 public class User {
@@ -7,6 +9,7 @@ public class User {
 
     private String password;
 
+    @Min(value = 18, message = "too young!")
     private int age;
 
     public User(String username, String password, int age) {
