@@ -1,8 +1,12 @@
 package org.rothurtech.usermanagement.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.juli.logging.LogFactory;
+import org.rothurtech.usermanagement.exception.UserException;
 import org.rothurtech.usermanagement.model.User;
 import org.rothurtech.usermanagement.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -11,9 +15,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Set;
 
+
+//swagger-ui annotation
 @Tag(name = "User Management System", description = "Tutorial management APIs")
 @RestController("/users")
 public class UserController {
+
+    Logger logger = LoggerFactory.getLogger(UserController.class);
     private UserService userService;
 
     public UserController(UserService userService) {
@@ -46,11 +54,11 @@ public class UserController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, bindingResult.getFieldError().getDefaultMessage());
         }
         if(userService.getUser(user) != null) {
-            //logger.info("User {} already exists!", user);
+            logger.info("User {} already exists!", user);
             return new ResponseEntity<>("User already exists!", HttpStatus.ALREADY_REPORTED);
         }else{
             if(userService.addUser(user)) {
-                //logger.info("User {} added successfully!", user);
+                logger.info("User {} added successfully!", user);
                 return new ResponseEntity<>("User added!", HttpStatus.CREATED);
             }
 
@@ -74,9 +82,9 @@ public class UserController {
         return new ResponseEntity<>("User deleted failed!", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-//    @GetMapping("/errortest")
-//    public ResponseEntity<String> errorTest() {
-//        throw new UserException("I am user exception!");
-//    }
+    @GetMapping("/errortest")
+    public ResponseEntity<String> errorTest() {
+        throw new UserException("I am user exception!");
+    }
 
 }

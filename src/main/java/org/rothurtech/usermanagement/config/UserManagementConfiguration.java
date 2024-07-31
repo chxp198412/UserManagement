@@ -4,7 +4,6 @@ import org.rothurtech.usermanagement.dao.UserDao;
 import org.rothurtech.usermanagement.repo.UserRepo;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 public class UserManagementConfiguration {
